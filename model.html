@@ -125,9 +125,11 @@ function initialize()
 	function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
 	function onError(xhr) { console.log( 'An error happened' ); }
 	
-	new THREE.MTLLoader()
-		.setPath( 'models/' )
-		.load( 'fish-2.mtl', function ( materials ) {
+	const loader = new THREE.MTLLoader()
+	
+	loader.setPath( 'models/' )
+	
+	loader.load( 'fish-2.mtl', function ( materials ) {
 			materials.preload();
 			new THREE.OBJLoader()
 				.setMaterials( materials )
@@ -148,6 +150,8 @@ function update()
 	// update artoolkit on every frame
 	if ( arToolkitSource.ready !== false )
 		arToolkitContext.update( arToolkitSource.domElement );
+
+	mesh0.position.y = mesh0.position.y + 0.1
 }
 
 
@@ -155,6 +159,7 @@ function render()
 {
 	renderer.render( scene, camera );
 }
+
 
 
 function animate()
